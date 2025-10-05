@@ -1,40 +1,40 @@
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
 
 const letters = "Happy Birthday ".split('');
 const fontSize = 20;
-const columns = Math.floor(canvas.width / fontSize);
+let columns = Math.floor(canvas.width / fontSize);
 
-const drops = [];
-for (let x = 0; x < columns; x++) {
-  drops[x] = Math.random() * canvas.height;
-}
+const drops = Array.from({ length: columns }, () => Math.random() * canvas.height);
 
 function draw() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  ctx.fillStyle = "#FF69B4"; // розовый цвет
+  ctx.fillStyle = "#FF69B4";
   ctx.font = fontSize + "px monospace";
 
-  for (let i = 0; i < drops.length; i++) {
+  drops.forEach((y, i) => {
     const text = letters[Math.floor(Math.random() * letters.length)];
-    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+    ctx.fillText(text, i * fontSize, y * fontSize);
 
-    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+    if (y * fontSize > canvas.height && Math.random() > 0.975) {
       drops[i] = 0;
     }
-
     drops[i]++;
-  }
+  });
 }
 
 setInterval(draw, 50);
 
 window.addEventListener('resize', () => {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  resizeCanvas();
+  columns = Math.floor(canvas.width / fontSize);
 });
