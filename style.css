@@ -1,0 +1,39 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+  font-family: 'Arial', sans-serif;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* фон */
+  display: block;
+}
+
+.center-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 60px;
+  color: #FF69B4;
+  text-shadow: 0 0 10px #FF69B4, 0 0 20px #FF69B4, 0 0 40px #FF69B4, 0 0 80px #FF1493;
+  z-index: 1; /* поверх canvas */
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #FF69B4, 0 0 10px #FF69B4, 0 0 20px #FF69B4, 0 0 40px #FF69B4;
+  }
+  to {
+    text-shadow: 0 0 20px #FF69B4, 0 0 40px #FF69B4, 0 0 60px #FF69B4, 0 0 100px #FF69B4;
+  }
+}
